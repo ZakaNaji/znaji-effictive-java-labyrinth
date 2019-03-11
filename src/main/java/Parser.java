@@ -1,4 +1,4 @@
 public interface Parser {
 
-    public
+    String[] parse(String strToParse, int separatorIndex);
 }
