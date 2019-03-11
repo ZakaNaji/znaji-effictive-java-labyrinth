@@ -1,6 +1,15 @@
+import java.util.HashSet;
+import java.util.Set;
+
 public class Labyrinth {
 
-    public Labyrinth(String...args){
+    private Set<Room> listOfRooms;
 
+    public Labyrinth(String...args){
+        listOfRooms = new HashSet<Room>();
+        Parser parser = new SepateRoomsParser();
+        for (String arg : args){
+
+        }
     }
 }
