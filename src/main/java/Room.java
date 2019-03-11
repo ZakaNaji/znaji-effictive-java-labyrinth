@@ -30,4 +30,18 @@ public class Room {
     public int hashCode() {
         return name.hashCode();
     }
+
+    public boolean hasForNeighbor(Room currentRoom) {
+        return nextRooms.containsKey(currentRoom);
+    }
+
+    public Door getDoorSeparatingNextRoom(Room currentRoom) {
+        return nextRooms.get(currentRoom);
+    }
+
+    public void getAllNrighbors(){
+        for (Room room : nextRooms.keySet()){
+            System.out.println(room.name);
+        }
+    }
 }

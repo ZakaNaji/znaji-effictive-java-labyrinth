@@ -3,6 +3,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.sqli.nespresso.labyrinth.exception.ClosedDoorException;
+import com.sqli.nespresso.labyrinth.exception.IllegalMoveException;
+
 public class Labyrinth {
 
     private static final int DOOR_SEPARATOR_INDEX = 1;
@@ -31,17 +34,39 @@ public class Labyrinth {
     }
 
     private void addFirstRoom(Room firstRoom, Room secondRoom, Door door) {
-        listOfRooms.add(firstRoom);
         firstRoom.addNeighbor(secondRoom,door);
+        listOfRooms.add(firstRoom);
     }
 
-    public void getRooms(){
+    public Room getRoomsFromList(String roomToFindName){
         for (Room room : listOfRooms){
-            System.out.println(room);
+            if(room.getRoomName().equals(roomToFindName)) return room;
         }
+        return null;
     }
 
     public void popIn(String roomName) {
         walkingPath.add(new Room(roomName));
     }
+
+    public void walkTo(String roomName) throws IllegalMoveException, ClosedDoorException {
+        Room currentRoom = new Room(roomName);
+        if(!listOfRooms.contains(currentRoom)) throw new IllegalMoveException();
+        else {
+            Room previousRoom = walkingPath.get(walkingPath.size()-1);
+            System.out.println(previousRoom.getRoomName());
+            if(previousRoom.hasForNeighbor(currentRoom)){
+                Door door = previousRoom.getDoorSeparatingNextRoom(currentRoom);
+                if(door.doorIsOpen()){
+                    walkingPath.add(currentRoom);
+                }else {
+                    throw new ClosedDoorException();
+                }
+            }else{
+                throw new IllegalMoveException();
+            }
+        }
+    }
+
+
 }

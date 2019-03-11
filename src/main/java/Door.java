@@ -8,4 +8,8 @@ public class Door {
         this.isOpen = isOpen;
     }
 
+    public boolean doorIsOpen(){
+        return isOpen;
+    }
+
 }
